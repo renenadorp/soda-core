@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  soda-sql-netezza:
+    image: netezza:latest
+    ports:
+      - "5480:5480"
+    volumes:
+      - ./.netezza/:/var/lib/netezzaql/data
+    environment:
+      - NETEZZA_USER=sodasql
+      - NETEZZA_DB=sodasql
+      - NETEZZA_HOST_AUTH_METHOD=trust

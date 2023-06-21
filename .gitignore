@@ -149,3 +149,6 @@ reports/*
 *.DS_Store
 
 *.lock
+
+# Local Testing Stuff
+.local/

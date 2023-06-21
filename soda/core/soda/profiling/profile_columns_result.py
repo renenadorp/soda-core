@@ -49,13 +49,13 @@ class ProfileColumnsResultColumn:
         self.histogram = histogram_values
 
     def set_text_aggregation_metrics(self, aggregated_metrics: list[tuple]) -> None:
-        self.distinct_values = self.cast_int_dtype_handle_none(aggregated_metrics[0][0])
-        self.missing_values = self.cast_int_dtype_handle_none(aggregated_metrics[0][1])
+        self.distinct_values = self.cast_float_dtype_handle_none(aggregated_metrics[0][0]) #RNA: int -> float
+        self.missing_values = self.cast_float_dtype_handle_none(aggregated_metrics[0][1]) #RNA: int -> float
         # TODO: after the discussion, we should change the type of the average_length to float
         # CLOUD-2764
-        self.average_length = self.cast_int_dtype_handle_none(aggregated_metrics[0][2])
-        self.min_length = self.cast_int_dtype_handle_none(aggregated_metrics[0][3])
-        self.max_length = self.cast_int_dtype_handle_none(aggregated_metrics[0][4])
+        self.average_length = self.cast_float_dtype_handle_none(aggregated_metrics[0][2]) #RNA: int -> float
+        self.min_length = self.cast_float_dtype_handle_none(aggregated_metrics[0][3]) #RNA: int -> float
+        self.max_length = self.cast_float_dtype_handle_none(aggregated_metrics[0][4]) #RNA: int -> float
 
     @staticmethod
     def unify_type(v: Any) -> Any:

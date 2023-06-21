@@ -40,18 +40,36 @@ class TextColumnProfiler:
         return self.result_column
 
     def _set_result_column_value_frequency_attribute(self) -> None:
+        #RNA
+        self.logs.warning('_set_result_column_value_frequency_attribute - Start')
+        #RNA
         value_frequencies = self._compute_value_frequency()
+
         if value_frequencies:
             self.result_column.set_frequency_metric(value_frequencies)
         else:
             self.logs.warning(
                 f"Database returned no results for textual frequent values in {self.table_name}, column: {self.column_name}"
             )
-
+        #RNA
+        self.logs.warning('_set_result_column_value_frequency_attribute - End')
+        #RNA
+        
     def _set_result_column_text_aggregation_attributes(self) -> None:
         text_aggregates = self._compute_text_aggregates()
+        #RNA
+        self.logs.warning(f"_set_result_column_text_aggregation_attributes - text_aggregates: {text_aggregates}") 
+        #RNA
         if text_aggregates:
+
+            #RNA
+            self.logs.warning(f"_set_result_column_text_aggregation_attributes - Before set_text_aggregation_metrics ") 
+            #RNA
             self.result_column.set_text_aggregation_metrics(text_aggregates)
+
+            #RNA
+            self.logs.warning(f"_set_result_column_text_aggregation_attributes - After set_text_aggregation_metrics ") 
+            #RNA
         else:
             self.logs.warning(
                 f"Database returned no results for textual aggregates in {self.table_name}, column: {self.column_name}"
@@ -71,7 +89,13 @@ class TextColumnProfiler:
             unqualified_query_name=f"profiling-{self.table_name}-{self.column_name}-value-frequencies-text",
             sql=value_frequencies_sql,
         )
+        #RNA
+        self.logs.warning(f"_compute_value_frequency - Before: Value frequencies sql: {value_frequencies_sql}")
+        #RNA
         value_frequencies_query.execute()
+        #RNA
+        self.logs.warning(f"_compute_value_frequency - After")
+        #RNA
         frequency_rows = value_frequencies_query.rows
         return frequency_rows
 
@@ -82,6 +106,18 @@ class TextColumnProfiler:
             unqualified_query_name=f"profiling: {self.table_name}, {self.column_name}: get textual aggregates",
             sql=text_aggregates_sql,
         )
+        #RNA
+        self.logs.warning(f"_compute_text_aggregates - Before: sql: {text_aggregates_query.sql}")
+        #RNA
         text_aggregates_query.execute()
+        #RNA
+        self.logs.warning(f"_compute_text_aggregates - After")
+        #RNA
+        
         text_aggregates_rows = text_aggregates_query.rows
+
+        #RNA
+        self.logs.warning(f"text_aggregates_rows - After: {text_aggregates_rows}")
+        #RNA
+        
         return text_aggregates_rows

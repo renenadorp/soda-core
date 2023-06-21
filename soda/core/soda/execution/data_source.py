@@ -809,7 +809,7 @@ class DataSource:
         return sql
 
     def cast_to_text(self, expr: str) -> str:
-        return f"CAST({expr} AS VARCHAR)"
+        return f"CAST({expr} AS VARCHAR(500))" #RNA Change. Was "VARCHAR"
 
     def profiling_sql_values_frequencies_query(
         self,
